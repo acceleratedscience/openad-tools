@@ -1,4 +1,4 @@
-# OpenAD Pyparsing Gramnmar Definitions
+# OpenAD Pyparsing Grammar Definitions
 
 This respository contains a collection of reusable pyparsing building blocks that can be consumed by the OpenAD plugins.
 
