@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "openad_grammar_def"
+version = "0.0.1"
+description = "A collection of reusable pyparsing building blocks"
+authors = [
+  "Phil Downey <phil.downey1@ibm.com>"
+]
+maintainers = [
+  "Phil Downey <phil.downey1@ibm.com>"
+]
+homepage = "https://www.accelerate.science/"
+documentation = "https://github.com/acceleratedscience/openad-grammar-def"
+repository = "https://github.com/acceleratedscience/openad-grammar-def"
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Typing :: Typed",
+    "Programming Language :: Python :: 3.11"
+]
+
+[tool.black]
+line-length=120
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+openad = ">=0.6.4"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
