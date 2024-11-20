@@ -7,8 +7,12 @@ import pyparsing as py
 
 # Optional quoted string
 quoted = py.QuotedString("'", escQuote="\\")
-# quoted.setParseAction(py.removeQuotes)
-opt_quoted = py.Optional("'") + quoted + py.Optional("'")
+opt_quoted = py.QuotedString("'", escQuote="\\") | (
+    py.Suppress(py.Literal("'")) + py.CaselessKeyword(py.printables) + py.Suppress(py.Literal("'"))
+)
+save_as = py.Optional(
+    py.Suppress(py.CaselessKeyword("save")) + py.Suppress(py.CaselessKeyword("as")) + quoted("results_file")
+)("save_as")
 
 
 # endregion
@@ -34,11 +38,16 @@ molecules = py.CaselessKeyword("molecules") | py.CaselessKeyword("mols")
 # Recursive molecule identifier that allows to parse a square brackets list
 # with molecule identifiers that contain square brackets themselves.
 # This requires that the list is the end of the command.
-molecule_identifier = py.Forward()
-_mol_chars = py.alphanums + "_()=-+/\\#@.*;"
-_mol_str = py.Word(_mol_chars)
-_mol_str_brackets = py.Combine(py.Literal("[") + molecule_identifier + py.Literal("]"))
-molecule_identifier <<= py.Combine(py.OneOrMore(_mol_str | _mol_str_brackets))
+
+# molecule_identifier = py.Forward()
+# _mol_chars = py.alphanums + "_()=-+/\\#@.*;"
+# _mol_str = py.Word(_mol_chars)
+# _mol_str_brackets = py.Combine(py.Literal("[") + molecule_identifier + py.Literal("]"))
+# molecule_identifier <<= py.Combine(py.OneOrMore(_mol_str | _mol_str_brackets))
+
+molecule_identifier = (py.Word(py.alphanums + "_[]()=,-+/\\#@.*;")) | (
+    py.Suppress(py.Literal("'")) + py.Word(py.alphanums + "_[]()=,-+/\\#@.*;") + py.Suppress(py.Literal("'"))
+)
 
 # List of identifier strings separated by comas
 _delimited_molecule_identifiers = py.delimitedList(molecule_identifier, delim=comma)
