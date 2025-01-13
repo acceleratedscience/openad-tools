@@ -48,7 +48,7 @@ import pandas
 from tabulate import tabulate
 from IPython.display import Markdown, display
 
-# OpenAD Tools
+# OpenAD tools
 from openad_tools.general import remove_lines, print_separator, get_print_width
 from openad_tools.style_parser import style, print_s, strip_tags, tags_to_markdown
 

@@ -3,7 +3,7 @@ Pretty print data in columns.
 """
 
 import math
-from openad.helpers.general import get_print_width
+from openad_tools.general import get_print_width
 
 
 def list_columns(

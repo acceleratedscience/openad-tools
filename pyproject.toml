@@ -3,14 +3,14 @@ name = "openad_tools"
 version = "0.0.2"
 description = "A collection of functional building blocks for OpenAD development"
 authors = [
-  "Phil Downey <phil.downey1@ibm.com>"
+  "Moenen Erbuer <moenen.erbuer@ibm.com>"
 ]
 maintainers = [
-  "Phil Downey <phil.downey1@ibm.com>"
+  "Moenen Erbuer <moenen.erbuer@ibm.com>"
 ]
-homepage = "https://www.accelerate.science/"
-documentation = "https://github.com/acceleratedscience/openad-grammar-def"
-repository = "https://github.com/acceleratedscience/openad-grammar-def"
+homepage = "https://www.accelerate.science/projects/openad"
+documentation = "https://github.com/acceleratedscience/openad-tools"
+repository = "https://github.com/acceleratedscience/openad-tools"
 readme = "README.md"
 license = "MIT"
 classifiers = [

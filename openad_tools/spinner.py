@@ -15,8 +15,10 @@ spinner.stop()
 """
 
 from time import sleep
-from openad.helpers.general import is_notebook_mode
-from openad.helpers.output import output_text
+
+# OpenAD tools
+from openad_tools.general import is_notebook_mode
+from openad_tools.output import output_text
 
 
 if is_notebook_mode():

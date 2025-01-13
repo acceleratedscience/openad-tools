@@ -18,6 +18,8 @@ str_strict_or_quoted = str_strict | str_quoted
 str_opt_quoted = str_quoted | (py.Suppress("'") + py.Word(py.printables) + py.Suppress("'"))
 
 # endregion
+
+
 #############################################
 # region - Lists
 
@@ -32,6 +34,8 @@ _comma = py.Suppress(py.Optional(py.White()) + py.Literal(",") + py.Optional(py.
 list_quoted = _sb_open + py.delimitedList(str_quoted, delim=",") + _sb_close
 
 # endregion
+
+
 #############################################
 # region - Molecules
 
@@ -70,6 +74,8 @@ molecule_working_set = py.MatchFirst(
 
 
 # endregion
+
+
 #############################################
 # region - Clauses
 

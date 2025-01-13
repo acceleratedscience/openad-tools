@@ -1,4 +1,4 @@
-# OpenAD Tools for 
+# OpenAD Tools
 
 This respository contains a collection of building blocks for OpenAD development.
 

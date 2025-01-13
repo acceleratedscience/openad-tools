@@ -1,12 +1,8 @@
 """
-Parse XML tags for easy styling of CLI text output.
----------------------------------------------------
-Author: Moenen Erbuer - moenen.erbuer@ibm.com
-v0.0.0-beta6 / Last update: Sep 28, 2023
+Parse XML tags for easy styling of text output for CLI and Jupyter Notebook.
 
-Description:
-    This module parses XML style tags into ANSI escape codes,
-    allowing for easy styling of CLI text output (color, bold, etc.)
+XML tags are turned into ANSI escape codes for terminal output, and Markdown compatile
+styled <span> elements for Jupyter Notebook, allowing for easy styling of text output.
 
 Available functions:
     style()                 Returns styled text

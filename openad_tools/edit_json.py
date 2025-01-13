@@ -1,40 +1,18 @@
-import ast
 import os
 import re
-import operator
+import ast
 import json
 import math
 import copy
-from functools import reduce
+import operator
+import jsonschema
 from threading import Timer
+from blessed import Terminal
+from functools import reduce
 from collections import deque, OrderedDict
 
-# Core
-import jsonschema
-from blessed import Terminal
-
-# Importing our own plugins.
-# - - -
-# This is a temporary solution until every plugin is
-# available as a public pypi package.
-# - - -
-# In production, every plugin has its own package directory
-# with __init__.py included, which all live inside the plugin
-# directory. The plugin directory has an __init__.py itself
-# which lets our plugins import eachother via the parent package
-# using ..cousin_module.
-# In development mode, each plugin directore lives in its
-# develoment directory, which are meant to be sibling dirs so
-# they can import one another using sys.path.append('../')
-try:
-    # Used in production setup.
-    from ..style_parser import print_s, style, strip_tags, a_len, a_textwrap
-except BaseException:
-    # Used in isolated plugin development setup.
-    import sys
-
-    sys.path.append("../")
-    from style_parser import print_s, style, strip_tags, a_len, a_textwrap
+# OpenAD tools
+from openad_tools.style_parser import print_s, style, strip_tags, a_len, a_textwrap
 
 # Debug modes:
 # 1: Display logger
@@ -734,9 +712,7 @@ class EditJson:
                 self.selected_help = (
                     f"<green>{type_str.upper()}{multiple_of_str}{range_str}</green><yellow/> {help_str}"
                     if type_str and help_str
-                    else f"<green>{type_str.upper()}</green>"
-                    if type_str
-                    else str(help_str)
+                    else f"<green>{type_str.upper()}</green>" if type_str else str(help_str)
                 )  # noqa
 
         if not self.active_screen or self.active_screen.keep_title:
@@ -1087,9 +1063,7 @@ class EditJson:
             show_help_str = (
                 ""
                 if not self.selected_help
-                else style(" <yellow>▼</yellow>")
-                if self.show_help
-                else style(" <yellow>▶</yellow>")
+                else style(" <yellow>▼</yellow>") if self.show_help else style(" <yellow>▶</yellow>")
             )
             value_str = a_textwrap(str(value), width=right_col_width)
             lines = value_str.splitlines()
