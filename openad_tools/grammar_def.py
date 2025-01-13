@@ -1,3 +1,7 @@
+"""
+Pyparsing grammar definitions for the OpenAD command line interface.
+"""
+
 # https://pyparsing-docs.readthedocs.io/en/latest/pyparsing.html
 
 # -fmt: off
