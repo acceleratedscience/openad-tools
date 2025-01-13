@@ -15,8 +15,8 @@ from IPython.display import clear_output
 
 # OpenAD tools
 from openad_tools.output_msgs import msg
-from openad_tools.output import output_text, output_error
 from openad_tools.style_parser import style
+from openad_tools.output import output_text, output_error
 
 
 # Refreshes the command prompt when in the shell.

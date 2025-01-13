@@ -18,7 +18,7 @@ from time import sleep
 
 # OpenAD tools
 from openad_tools.general import is_notebook_mode
-from openad_tools.output import output_text
+from openad.helpers.output import output_text
 
 
 if is_notebook_mode():

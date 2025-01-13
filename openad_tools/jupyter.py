@@ -3,9 +3,14 @@ Helper functions for Jupyter Notebook.
 """
 
 import os
+import pandas as pd
 from rdkit import Chem
 from IPython.display import display, HTML
+
+# OpenAD
 from openad.smols.smol_functions import get_mol_rdkit, valid_identifier
+
+# OpenAD helpers
 from openad_tools.output_msgs import msg
 from openad_tools.output import output_error, output_warning, output_success, output_text
 
@@ -40,6 +45,11 @@ def jup_display_input_molecule(identifier, identifier_type=None):
             w_id_type = " with identifier type '" + identifier_type + "'" if identifier_type else ""
             ouput_msg = f"Error in jup_display_input_molecule():\nSomething went wrong displaying the molecule '{identifier}'{w_id_type}."
             output_error([ouput_msg, err], return_val=False)
+
+
+######################
+# Dataframes
+######################
 
 
 def save_df_as_csv(cmd_pointer, df, dest_file_path):
@@ -106,40 +116,22 @@ def save_df_as_csv(cmd_pointer, df, dest_file_path):
     output_text(f"<soft>To open it, run <cmd>open '{updated_dest_file_path or dest_file_path}'</cmd></soft>", pad_btm=1)
 
 
-def parse_using_clause(params: list, allowed: list):
+def col_from_df(df, column_name) -> list:
     """
-    Parse the content of the USING clause from a list of tuples into a dictionary.
-
-    - Input: [["foo", 123], ["bar", "baz"]]
-    - Output: {"foo": 123, "bar": "baz"}
-
-    Parameters
-    ----------
-    params : list
-        List of tuples
-    allowed : list
-        List of allowed keys
+    Return a dataframe's column as a list object.
     """
 
-    params_dict = {}
-    invalid_keys = []
+    if column_name in df:
+        return df[column_name].tolist()
+    return []
 
-    if not params:
-        return params_dict
 
-    for [key, val] in params:
-        if key in allowed:
-            params_dict[key] = val
-        else:
-            invalid_keys.append(key)
+def csv_to_df(cmd_pointer, filename):
+    """
+    Turn a CSV file into a dataframe.
+    """
 
-    if invalid_keys:
-        output_warning(
-            "Warning: Ignored invalid USING parameters:\n- <error>"
-            + ("</error>\n- <error>".join(invalid_keys))
-            + "</error>",
-            return_val=False,
-            pad=1,
-        )
-
-    return params_dict
+    file_path = os.path.join(cmd_pointer.workspace_path(), filename)
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"File '{filename}' does not exist")
+    return pd.read_csv(file_path)

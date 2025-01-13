@@ -49,7 +49,6 @@ from tabulate import tabulate
 from IPython.display import Markdown, display
 
 # OpenAD tools
-from openad_tools.general import remove_lines, print_separator, get_print_width
 from openad_tools.style_parser import style, print_s, strip_tags, tags_to_markdown
 
 
@@ -236,9 +235,10 @@ def output_table(
         will always be none, so this way we can set it manually.
     """
 
-    # Imported here to avoid circular imports.
+    # Imported here to avoid circular imports
     from openad.app.global_var_lib import MEMORY
     from openad.app.global_var_lib import GLOBAL_SETTINGS
+    from openad_tools.general import get_print_width
 
     # A dataframe can be styled, eg. df.style.set_properties(**{"text-align": "left"})
     # but a styled dataframe comes in as a styler object, which breaks functionality.
@@ -402,6 +402,9 @@ def output_table(
 
 
 def _paginated_output(table, headers=None, exit_msg=None):
+    # Imported here to avoid circular imports
+    from openad_tools.general import remove_lines, print_separator
+
     output_lines = table.split("\n")
 
     # Calculate table width.
