@@ -1,6 +1,6 @@
 # OpenAD Tools
 
-This library contains a collection of modules for [OpenAD](https://github.com/acceleratedscience/open-ad-toolkit) plugin development.
+A common library of modules for [OpenAD](https://github.com/acceleratedscience/open-ad-toolkit) plugin development.
 
 <!-- When updating version, please also update below under ### Usage -->
 Latest version: 0.0.1
@@ -70,3 +70,25 @@ To use this library in your OpenAD plugins, please refer to our [Demo Plugin](ht
 
 6.  `edit_json.py`<br>
     A library for quickly editing JSON files directly from the CLI.
+
+
+<!--
+
+For maintainers
+---------------
+
+Whenever doing changes, please add a new tag with the next version number,
+then update this README with the latest version number.
+
+# Adding a tag
+git tag -a v1.0.0 -m "Release version 1.0.0"
+git push origin v1.0.0
+
+# Removing a tag locally
+git tag -d v1.0.0
+
+# Removing a tag remotely
+git push origin --delete tag v1.0.0
+
+
+-->

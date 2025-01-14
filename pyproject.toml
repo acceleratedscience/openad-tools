@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "openad_tools"
 version = "0.0.1"
-description = "A collection of functional building blocks for OpenAD development"
+description = "A common library of modules for OpenAD plugin development"
 authors = [
   "Moenen Erbuer <moenen.erbuer@ibm.com>"
 ]
