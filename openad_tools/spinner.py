@@ -17,7 +17,7 @@ spinner.stop()
 from time import sleep
 
 # OpenAD tools
-from openad_tools.general import is_notebook_mode
+from openad_tools.helpers import is_notebook_mode
 from openad.helpers.output import output_text
 
 

@@ -1,10 +1,11 @@
 """
 Pyparsing grammar definitions for the OpenAD command line interface.
+
+Pyparsing documentation:
+    https://pyparsing-docs.readthedocs.io/en/latest/HowToUsePyparsing.html
+Pyparsing types:
+    https://pyparsing-docs.readthedocs.io/en/latest/pyparsing.html
 """
-
-# https://pyparsing-docs.readthedocs.io/en/latest/pyparsing.html
-
-# -fmt: off
 
 import pyparsing as py
 

@@ -238,7 +238,7 @@ def output_table(
     # Imported here to avoid circular imports
     from openad.app.global_var_lib import MEMORY
     from openad.app.global_var_lib import GLOBAL_SETTINGS
-    from openad_tools.general import get_print_width
+    from openad_tools.helpers import get_print_width
 
     # A dataframe can be styled, eg. df.style.set_properties(**{"text-align": "left"})
     # but a styled dataframe comes in as a styler object, which breaks functionality.
@@ -403,7 +403,7 @@ def output_table(
 
 def _paginated_output(table, headers=None, exit_msg=None):
     # Imported here to avoid circular imports
-    from openad_tools.general import remove_lines, print_separator
+    from openad_tools.helpers import remove_lines, print_separator
 
     output_lines = table.split("\n")
 
