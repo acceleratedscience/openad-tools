@@ -137,18 +137,6 @@ def user_secret(cmd_pointer, question):
     return text
 
 
-# Return list of available toolkit names.
-def get_toolkits():
-    folder_path = os.path.dirname(os.path.abspath(__file__)) + "/../user_toolkits"
-    ignore_dirs = ["__pycache__", "readme"]
-    toolkit_names = [
-        name.upper()
-        for name in os.listdir(folder_path)
-        if os.path.isdir(os.path.join(folder_path, name)) and name not in ignore_dirs
-    ]
-    return toolkit_names
-
-
 # Return boolean if toolkit is installed.
 def is_toolkit_installed(toolkit_name, cmd_pointer=None):
     return cmd_pointer and toolkit_name and toolkit_name.upper() in cmd_pointer.settings["toolkits"]

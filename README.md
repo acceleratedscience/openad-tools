@@ -84,11 +84,8 @@ then update this README with the latest version number.
 git tag -a v1.0.0 -m "Release version 1.0.0"
 git push origin v1.0.0
 
-# Removing a tag locally
+# Removing a tag locally & remotely
 git tag -d v1.0.0
-
-# Removing a tag remotely
 git push origin --delete tag v1.0.0
-
 
 -->
