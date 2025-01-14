@@ -27,7 +27,7 @@ To use this library in your OpenAD plugins, please refer to our [Demo Plugin](ht
 
 #### Output Modules
 
-Modules related to the output of text or data in the terminal and Jupyter Notebook.
+*Modules related to the output of text or data in the terminal and Jupyter Notebook.*
 
 1.  `output.py`<br>
     A simple way to output styled text and data to the termninal and Jupyter Notebook.
@@ -51,7 +51,7 @@ Modules related to the output of text or data in the terminal and Jupyter Notebo
 
 #### Utility Modules
 
-A variety of practical tools.
+*A variety of practical tools.*
 
 1.  `grammar_def.py`<br>
     Pyparsing grammar definitions, used as ready-made building blocks to build new commands.
