@@ -1,9 +1,32 @@
+<!--
+
+Version Releasing
+-----------------
+
+Plugins refer to a specific version of openad_tools,
+so whenever doing changes:
+- Add a new tag with the next version number
+- Update this README with the latest version number (two places!)
+
+# See current tags
+git tag
+
+# Adding a tag
+git tag -a v0.0.1 -m "Release version 0.0.1"
+git push origin v0.0.1
+
+# Removing a tag locally & remotely
+git tag -d v0.0.1
+git push origin --delete tag v0.0.1
+
+-->
+
 # OpenAD Tools
 
 A common library of modules for [OpenAD](https://github.com/acceleratedscience/open-ad-toolkit) plugin development.
 
-<!-- When updating version, please also update below under ### Usage -->
-Latest version: 0.0.1
+<!-- Keep version in sync #1/2 -->
+Latest version: 0.0.2
 
 <br>
 
@@ -12,10 +35,10 @@ Latest version: 0.0.1
 To use this library in your OpenAD plugins, please refer to our [Demo Plugin](https://github.com/acceleratedscience/openad-plugin-demo).
 
 1.  Add the library to your Poetry development dependencies in `pyproject.toml`, making sure to specify the latest version.
-    <!-- Make sure to update version here -->
+    <!-- Keep version in sync #2/2 -->
 
         [tool.poetry.dependencies]
-        openad_tools = { git = "ssh://git@github.com/acceleratedscience/openad-tools", branch = "main", tag = "v0.0.1" }
+        openad_tools = { git = "ssh://git@github.com/acceleratedscience/openad-tools", branch = "main", tag = "v0.0.2" }
 
 1.  In your code, import the tools as you need them.
 
@@ -70,22 +93,3 @@ To use this library in your OpenAD plugins, please refer to our [Demo Plugin](ht
 
 6.  `edit_json.py`<br>
     A library for quickly editing JSON files directly from the CLI.
-
-
-<!--
-
-For maintainers
----------------
-
-Whenever doing changes, please add a new tag with the next version number,
-then update this README with the latest version number.
-
-# Adding a tag
-git tag -a v1.0.0 -m "Release version 1.0.0"
-git push origin v1.0.0
-
-# Removing a tag locally & remotely
-git tag -d v1.0.0
-git push origin --delete tag v1.0.0
-
--->
