@@ -398,6 +398,11 @@ def get_case_insensitive_key(dictionary, key_lowercase):
     return None, None
 
 
+# Get the path to the description.txt file in the same folder as the current file.
+def description_txt(current_file, filename="description.txt"):
+    return os.path.join(os.path.dirname(os.path.abspath(current_file)), filename)
+
+
 #
 #
 #

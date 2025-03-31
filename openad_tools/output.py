@@ -77,7 +77,10 @@ def output_text(message, return_val=None, jup_return_format=None, **kwargs):
     """
 
     # Imported here to avoid circular imports.
-    from openad.app.global_var_lib import GLOBAL_SETTINGS
+    try:
+        from openad.app.global_var_lib import GLOBAL_SETTINGS
+    except ImportError:
+        GLOBAL_SETTINGS = {"display": "terminal"}
 
     return_val = GLOBAL_SETTINGS["display"] == "notebook" if return_val is None else return_val
 

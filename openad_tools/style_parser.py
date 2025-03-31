@@ -252,24 +252,15 @@ def strip_tags(text: str):
     return text
 
 
-# UNTESTED AND UNUSED
-# def strip_ansi(text: str):
-#     """
-#     Remove ANSI escape codes.
+def strip_ansi(text: str):
+    """
+    Strip ANSI characters from a string.
 
-#     Code from https://stackoverflow.com/a/2187024
-#     """
-
-#     from pyparsing import Literal, Word, Combine, Optional, delimitedList, oneOf, alphas, Suppress, nums
-
-#     ESC = Literal('\x1b')
-#     integer = Word(nums)
-#     escapeSeq = Combine(ESC + '[' + Optional(delimitedList(integer, ';')) + oneOf(list(alphas)))
-
-#     def nonAnsiString(s): return Suppress(escapeSeq).transformString(s)
-
-#     unColorString = nonAnsiString('\x1b[1m0.0\x1b[0m')
-#     print(unColorString, len(unColorString))
+    Note: this is only looking for color codes, not cursor movement
+    or other ANSI codes as these are not used by the style parser.
+    """
+    ansi_escape = re.compile("(?:\\x1B\[\d+(?:;\d+)*m)", flags=re.IGNORECASE | re.MULTILINE)
+    return ansi_escape.sub("", text)
 
 
 def tags_to_markdown(text: str):
