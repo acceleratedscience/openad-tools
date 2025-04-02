@@ -1,6 +1,10 @@
 """
 Pyparsing grammar definitions for the OpenAD command line interface.
 
+Usage:
+    from openad_tools.grammar_def import molecule_identifier_s
+
+
 Pyparsing documentation:
     https://pyparsing-docs.readthedocs.io/en/latest/HowToUsePyparsing.html
 Pyparsing types:
@@ -86,7 +90,7 @@ molecule_working_set = py.MatchFirst(
         py.CaselessKeyword("@mols"),
         py.CaselessKeyword("@molecules"),
     ]
-)
+)("mws")
 
 
 # endregion

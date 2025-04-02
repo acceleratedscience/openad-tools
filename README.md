@@ -6,18 +6,18 @@ Version Releasing
 Plugins refer to a specific version of openad_tools,
 so whenever doing changes:
 - Add a new tag with the next version number
-- Update this README with the latest version number (two places!)
+- Find-and-replace this README with the latest version number (two places + instructions)
 
 # See current tags
 git tag
 
 # Adding a tag
-git tag -a v0.0.1 -m "Release version 0.0.1"
-git push origin v0.0.1
+git tag -a v0.0.2 -m "Release v0.0.2"
+git push origin v0.0.2
 
 # Removing a tag locally & remotely
-git tag -d v0.0.1
-git push origin --delete tag v0.0.1
+git tag -d v0.0.2
+git push origin --delete tag v0.0.2
 
 -->
 
@@ -26,7 +26,7 @@ git push origin --delete tag v0.0.1
 A common library of modules for [OpenAD](https://github.com/acceleratedscience/open-ad-toolkit) plugin development.
 
 <!-- Keep version in sync #1/2 -->
-Latest version: 0.0.2
+Latest version: `v0.0.2`
 
 <br>
 
