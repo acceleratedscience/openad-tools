@@ -11,67 +11,44 @@ Pyparsing types:
     https://pyparsing-docs.readthedocs.io/en/latest/pyparsing.html
 """
 
-import pyparsing as py
+import pyparsing as pp
 
-#############################################
+# ------------------------------------------
 # region - Strings
 
-str_catchall = py.OneOrMore(py.Word(py.printables))
-str_any = py.Word(py.printables)
-str_strict = py.Word(py.alphanums + "-_")
-str_quoted = py.QuotedString("'", escChar="\\")
+str_catchall = pp.OneOrMore(pp.Word(pp.printables))
+str_any = pp.Word(pp.printables)
+str_strict = pp.Word(pp.alphanums + "-_")
+str_quoted = pp.QuotedString("'", escChar="\\")
+# str_quoted = pp.Suppress("'") + pp.Word(pp.printables) + pp.Suppress("'")
+
 str_opt_quoted = str_strict | str_quoted
 str_strict_or_quoted = str_strict | str_quoted  # Legacy
 
 # endregion
-
-
-#############################################
+# ------------------------------------------
 # region - Lists
 
 # Open and close square brackets, with optional space on inside
-_sb_open = py.Suppress(py.Literal("[") + py.Optional(py.White()))
-_sb_close = py.Suppress(py.Optional(py.White()) + py.Literal("]"))
+_sb_open = pp.Suppress(pp.Literal("[") + pp.Optional(pp.White()))
+_sb_close = pp.Suppress(pp.Optional(pp.White()) + pp.Literal("]"))
 
-# Comma with optional spaces before/after
-_comma = py.Suppress(py.Optional(py.White()) + py.Literal(",") + py.Optional(py.White()))
-
-# Comma with optional spaces before, mandatory space after
-# Required to parse lists of InChI, because InChI can contain commas
-_comma_space = py.Suppress(py.Optional(py.White()) + py.Literal(",") + py.White())
-
-# List of quoted strings separated by commas and encapsulated in square brackets
-list_quoted = _sb_open + py.delimitedList(str_quoted, delim=",") + _sb_close
+# List of quoted strings separated by commas (white space optional by default) and encapsulated in square brackets
+list_quoted = _sb_open + pp.delimitedList(str_quoted) + _sb_close
 
 # endregion
-
-
-#############################################
+# ------------------------------------------
 # region - Molecules
 
 # Molecule(s) keywords
-molecule = py.CaselessKeyword("molecule") | py.CaselessKeyword("mol")
-molecules = py.CaselessKeyword("molecules") | py.CaselessKeyword("mols")
-molecule_s = py.MatchFirst([molecule, molecules])
+molecule = pp.CaselessKeyword("molecule") | pp.CaselessKeyword("mol")
+molecules = pp.CaselessKeyword("molecules") | pp.CaselessKeyword("mols")
+molecule_s = pp.MatchFirst([molecule, molecules])
 
-# Recursive molecule identifier that allows to parse a square brackets list
-# with molecule identifiers that contain square brackets themselves.
-molecule_identifier = py.Forward()
-_mol_chars = py.alphanums + "_()=-+/\\#@.,*;"
-_mol_str = py.Word(_mol_chars)
-_mol_str_brackets = py.Combine(py.Literal("[") + molecule_identifier + py.Literal("]"))
-molecule_identifier <<= py.Combine(py.OneOrMore(_mol_str | _mol_str_brackets))
-
-# Simpler molecule identifier that does not work with square brackets inside a list.
-# molecule_identifier = (py.Word(py.alphanums + "_[]()=,-+/\\#@.*;")) | (
-#     py.Suppress("'") + py.Word(py.alphanums + "_[]()=,-+/\\#@.*;") + py.Suppress("'")
-# )
-
-# List of identifier strings separated by comas
-_delimited_molecule_identifiers = py.delimitedList(molecule_identifier, delim=_comma_space)
-
-# List of strings separated by comas and encapsulated in square brackets
-molecule_identifier_list = _sb_open + _delimited_molecule_identifiers + _sb_close
+# Molecule identifier
+molecule_identifier = (pp.Word(pp.alphanums + "_[]()=,-+/\\#@.*;")) | (
+    pp.Suppress("'") + pp.Word(pp.alphanums + "_[]()=,-+/\\#@.*;") + pp.Suppress("'")
+)
 
 # Agnostic parser that handler both single and list of molecules input, always resulting in a list of identifiers
 # Input:
@@ -80,42 +57,40 @@ molecule_identifier_list = _sb_open + _delimited_molecule_identifiers + _sb_clos
 # Output:
 #   - ["foo"]
 #   - ["foo", "bar"]
-molecule_identifier_s = py.MatchFirst(
+molecule_identifier_s = pp.MatchFirst(
     [
-        molecule_identifier_list("identifiers"),
-        py.Group(molecule_identifier)("identifiers"),
+        list_quoted("identifiers"),
+        molecule_identifier("identifiers"),
     ]
 )
 
 # Molecule woroking set
-molecule_working_set = py.MatchFirst(
+molecule_working_set = pp.MatchFirst(
     [
-        py.CaselessKeyword("@mws"),
-        py.CaselessKeyword("@mols"),
-        py.CaselessKeyword("@molecules"),
+        pp.CaselessKeyword("@mws"),
+        pp.CaselessKeyword("@mols"),
+        pp.CaselessKeyword("@molecules"),
     ]
 )("mws")
 
 
 # endregion
-
-
-#############################################
+# ------------------------------------------
 # region - Clauses
 
 # Save as <filename>
-clause_save_as = py.Optional(
-    py.Suppress(py.CaselessKeyword("save")) + py.Suppress(py.CaselessKeyword("as")) + str_quoted("results_file")
+clause_save_as = pp.Optional(
+    pp.Suppress(pp.CaselessKeyword("save")) + pp.Suppress(pp.CaselessKeyword("as")) + str_quoted("results_file")
 )("save_as")
 
 # USING (param1=value, param2=value, ...)
-_using = py.CaselessKeyword("USING").suppress()
-_param_value = py.Group(str_strict_or_quoted + py.Suppress("=") + str_strict_or_quoted)
-clause_using = py.Optional(
-    _using + py.Suppress("(") + py.Optional(py.OneOrMore(_param_value))("using") + py.Suppress(")")
+_using = pp.CaselessKeyword("USING").suppress()
+_param_value = pp.Group(str_strict_or_quoted + pp.Suppress("=") + str_strict_or_quoted)
+clause_using = pp.Optional(
+    _using + pp.Suppress("(") + pp.Optional(pp.OneOrMore(_param_value))("using") + pp.Suppress(")")
 )
 
 # Update molecule working set
-clause_update_mws = py.Optional(py.CaselessKeyword("update") + molecule_working_set)
+clause_update_mws = pp.Optional(pp.CaselessKeyword("update") + molecule_working_set)
 
 # endregion
