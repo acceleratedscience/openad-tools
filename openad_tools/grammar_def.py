@@ -20,8 +20,8 @@ str_catchall = py.OneOrMore(py.Word(py.printables))
 str_any = py.Word(py.printables)
 str_strict = py.Word(py.alphanums + "-_")
 str_quoted = py.QuotedString("'", escChar="\\")
-str_strict_or_quoted = str_strict | str_quoted
-str_opt_quoted = str_quoted | (py.Suppress("'") + py.Word(py.printables) + py.Suppress("'"))
+str_opt_quoted = str_strict | str_quoted
+str_strict_or_quoted = str_strict | str_quoted  # Legacy
 
 # endregion
 
@@ -35,6 +35,10 @@ _sb_close = py.Suppress(py.Optional(py.White()) + py.Literal("]"))
 
 # Comma with optional spaces before/after
 _comma = py.Suppress(py.Optional(py.White()) + py.Literal(",") + py.Optional(py.White()))
+
+# Comma with optional spaces before, mandatory space after
+# Required to parse lists of InChI, because InChI can contain commas
+_comma_space = py.Suppress(py.Optional(py.White()) + py.Literal(",") + py.White())
 
 # List of quoted strings separated by commas and encapsulated in square brackets
 list_quoted = _sb_open + py.delimitedList(str_quoted, delim=",") + _sb_close
@@ -53,7 +57,7 @@ molecule_s = py.MatchFirst([molecule, molecules])
 # Recursive molecule identifier that allows to parse a square brackets list
 # with molecule identifiers that contain square brackets themselves.
 molecule_identifier = py.Forward()
-_mol_chars = py.alphanums + "_()=-+/\\#@.*;"
+_mol_chars = py.alphanums + "_()=-+/\\#@.,*;"
 _mol_str = py.Word(_mol_chars)
 _mol_str_brackets = py.Combine(py.Literal("[") + molecule_identifier + py.Literal("]"))
 molecule_identifier <<= py.Combine(py.OneOrMore(_mol_str | _mol_str_brackets))
@@ -64,7 +68,7 @@ molecule_identifier <<= py.Combine(py.OneOrMore(_mol_str | _mol_str_brackets))
 # )
 
 # List of identifier strings separated by comas
-_delimited_molecule_identifiers = py.delimitedList(molecule_identifier, delim=_comma)
+_delimited_molecule_identifiers = py.delimitedList(molecule_identifier, delim=_comma_space)
 
 # List of strings separated by comas and encapsulated in square brackets
 molecule_identifier_list = _sb_open + _delimited_molecule_identifiers + _sb_close
