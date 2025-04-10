@@ -12,12 +12,12 @@ so whenever doing changes:
 git tag
 
 # Adding a tag
-git tag -a v0.0.2 -m "Release v0.0.2"
-git push origin v0.0.2
+git tag -a v0.0.3 -m "Release v0.0.3"
+git push origin v0.0.3
 
 # Removing a tag locally & remotely
-git tag -d v0.0.2
-git push origin --delete tag v0.0.2
+git tag -d v0.0.3
+git push origin --delete tag v0.0.3
 
 -->
 
@@ -26,7 +26,7 @@ git push origin --delete tag v0.0.2
 A common library of modules for [OpenAD](https://github.com/acceleratedscience/open-ad-toolkit) plugin development.
 
 <!-- Keep version in sync #1/2 -->
-Latest version: `v0.0.2`
+Latest version: `v0.0.3`
 
 <br>
 
@@ -38,7 +38,7 @@ To use this library in your OpenAD plugins, please refer to our [Demo Plugin](ht
     <!-- Keep version in sync #2/2 -->
 
         [tool.poetry.dependencies]
-        openad_tools = { git = "ssh://git@github.com/acceleratedscience/openad-tools", branch = "main", tag = "v0.0.2" }
+        openad_tools = { git = "ssh://git@github.com/acceleratedscience/openad-tools", branch = "main", tag = "v0.0.3" }
 
 1.  In your code, import the tools as you need them.
 

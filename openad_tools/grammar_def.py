@@ -49,6 +49,7 @@ molecule_s = pp.MatchFirst([molecule, molecules])
 molecule_identifier = (pp.Word(pp.alphanums + "_[]()=,-+/\\#@.*;")) | (
     pp.Suppress("'") + pp.Word(pp.alphanums + "_[]()=,-+/\\#@.*;") + pp.Suppress("'")
 )
+molecule_identifier.set_parse_action(lambda tokens: tokens[0])  # Extract string from list
 
 # Agnostic parser that handler both single and list of molecules input, always resulting in a list of identifiers
 # Input:
